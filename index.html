@@ -115,7 +115,7 @@
 
         <div class="row gy-4 justify-content-center">
           <div class="col-lg-4">
-            <img src="assets/img/my-profile-imgs.png" class="img-fluid" alt="">
+            <img src="assets/img/my-profile-imgs.jpg" class="img-fluid" alt="">
           </div>
           <div class="col-lg-8 content">
             <h2>Diseñador UI/UX &amp; Programador web.</h2>
@@ -133,7 +133,8 @@
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Edad:</strong> <span>25</span></li>
+                  <li>
+                  <i class="bi bi-chevron-right"></i><strong>Edad:</strong><span id="edad"></span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Grado:</strong> <span>Semi-senior</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span>alejo_recalde@hotmail.com</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Trabajo freelance:</strong> <span>Disponible</span></li>
@@ -147,6 +148,25 @@
       </div>
 
     </section><!-- /About Section -->
+    <script>
+  // Fecha de nacimiento
+  const nacimiento = new Date(2000, 3, 19); // Mes 3 = abril (0-indexado)
+
+  // Fecha actual
+  const hoy = new Date();
+
+  // Calcular edad
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+  // Ajustar si no ha sido el cumpleaños aún este año
+  const cumpleEsteAno = new Date(hoy.getFullYear(), nacimiento.getMonth(), nacimiento.getDate());
+  if (hoy < cumpleEsteAno) {
+    edad--;
+  }
+
+  // Mostrar en el span
+  document.getElementById('edad').textContent = edad;
+</script>
 
     <!-- Stats Section -->
     <section id="stats" class="stats section">
@@ -466,6 +486,18 @@
                   <p>Imagen real.</p>
                   <a href="assets/img/portfolio/branding-2.png" title="" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                   <a href="#contact" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Web Digitel</h4>
+                  <p>Imagen real.</p>
+                  <a href="assets/img/portfolio/product-3.jpg" title="" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
