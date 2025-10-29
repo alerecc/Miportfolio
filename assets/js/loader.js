@@ -1,34 +1,12 @@
-// loader.js - versión rápida y fluida
-
 var textarea = $('.term'); 
 
-// velocidad de tipeo inicial (más rápida que antes)
-var typingSpeed = 40; 
+var typingSpeed = 130; // velocidad de tecleo primera línea
 var text = 'node alejogastonrecc.js';
 var i = 0;
 
-runner();
-
-function runner() {
-  textarea.append(text.charAt(i));
-  textarea.scrollTop(textarea[0].scrollHeight);
-  i++;
-
-  // velocidad constante y más rápida
-  setTimeout(function() {
-    if (i < text.length) {
-      runner();
-    } else {
-      textarea.append("<br>");
-      i = 0;
-      // breve pausa antes de iniciar la simulación del “boot”
-      setTimeout(feedbacker, 500);
-    }
-  }, typingSpeed);
-}
-
-var count = 0;
-var time = 1;
+var keySound = 'assets/sounds/keystroke.ogg';
+var enterSound = new Audio('assets/sounds/enter.wav'); 
+enterSound.volume = 0.5;
 
 var output = [
   "Loading system kernel v10.28...",
@@ -56,39 +34,68 @@ var output = [
   ""
 ];
 
-function feedbacker() {
-  // simulamos pequeños delays aleatorios entre líneas
-  time = Math.floor(Math.random() * 3) + 1; // 1-3
-  var delayMs = time * 150; // rápido pero legible
+// Función para reproducir sonido de tecla (solo para la primera línea)
+function playKeySound() {
+    var audio = new Audio(keySound);
+    audio.volume = 0.3;
+    audio.play().catch(()=>{});
+}
 
-  if (i < output.length) {
-    textarea.append("[    " + (count / 1000).toFixed(3) + "] " + output[i] + "<br>");
+function playEnterSound() {
+    enterSound.currentTime = 0;
+    enterSound.play().catch(()=>{});
+}
+
+// Listener del botón
+$('#start-portfolio').on('click', function() {
+    $(this).hide();
+    runner(); // iniciar primera línea
+});
+
+// animación tecleo de la primera línea
+function runner() {
+    textarea.append(text.charAt(i));
+    playKeySound();
     textarea.scrollTop(textarea[0].scrollHeight);
-  }
-
-  // a veces imprime 2 seguidas (como actividad intensa del sistema)
-  if (Math.random() < 0.3 && i + 1 < output.length) {
     i++;
-    textarea.append("[    " + (count / 1000).toFixed(3) + "] " + output[i] + "<br>");
-    textarea.scrollTop(textarea[0].scrollHeight);
-  }
 
-  i++;
-  count += time;
+    setTimeout(function() {
+        if (i < text.length) {
+            runner();
+        } else {
+            playEnterSound();
+            textarea.append("<br>");
+            i = 0;
+            // iniciar kernel sin sonido, más rápido
+            setTimeout(() => feedbackerLetterByLetter(0, 0), 300);
+        }
+    }, typingSpeed);
+}
 
-  setTimeout(function() {
-    if (i < output.length - 1) {
-      feedbacker();
-    } else {
-      textarea.append("<br>Initialising...<br>");
-      textarea.scrollTop(textarea[0].scrollHeight);
+// función que escribe cada línea letra por letra, sin sonido y más rápido
+function feedbackerLetterByLetter(lineIndex, charIndex) {
+    if (lineIndex >= output.length) {
+        textarea.append("<br>Initialising...<br>");
+        playEnterSound();
+        textarea.scrollTop(textarea[0].scrollHeight);
 
-      // fade-out suave del loader
-      setTimeout(function() {
-        $(".load").fadeOut(1000, function() {
-          $('body').css('overflow', 'auto');
-        });
-      }, 800);
+        setTimeout(function() {
+            $(".load").fadeOut(1000, function() {
+                $('body').css('overflow', 'auto');
+            });
+        }, 800);
+        return;
     }
-  }, delayMs);
+
+    const line = output[lineIndex];
+    const fastSpeed = 5; // velocidad más rápida para las demás líneas
+
+    if (charIndex < line.length) {
+        textarea.append(line.charAt(charIndex));
+        textarea.scrollTop(textarea[0].scrollHeight);
+        setTimeout(() => feedbackerLetterByLetter(lineIndex, charIndex + 1), fastSpeed);
+    } else {
+        textarea.append("<br>");
+        setTimeout(() => feedbackerLetterByLetter(lineIndex + 1, 0), 50); // siguiente línea
+    }
 }

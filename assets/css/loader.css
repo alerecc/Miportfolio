@@ -46,6 +46,15 @@ html, body {
   animation: cursor 1s infinite;
 }
 
+/* CSS básico para el botón */
+#start-portfolio {
+    padding: 10px 20px;
+    margin-top: 0px;
+    margin-right: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 @keyframes cursor {
   0%, 40% { opacity: 0; }
   50%, 90% { opacity: 1; }
