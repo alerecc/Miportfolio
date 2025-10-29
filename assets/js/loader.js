@@ -72,30 +72,23 @@ function runner() {
     }, typingSpeed);
 }
 
-// función que escribe cada línea letra por letra, sin sonido y más rápido
-function feedbackerLetterByLetter(lineIndex, charIndex) {
+function feedbackerLetterByLetter(lineIndex) {
     if (lineIndex >= output.length) {
-        textarea.append("<br>Empecemos...<br>");
+        textarea.append("<br>Inicializando...<br>");
         playEnterSound();
         textarea.scrollTop(textarea[0].scrollHeight);
 
-        setTimeout(function () {
-            $(".load").fadeOut(1000, function () {
+        setTimeout(() => {
+            $(".load").fadeOut(1000, () => {
                 $('body').css('overflow', 'auto');
             });
         }, 800);
         return;
     }
 
-    const line = output[lineIndex];
-    const fastSpeed = 1; // velocidad más rápida para las demás líneas
+    textarea.append(output[lineIndex] + "<br>");
+    textarea.scrollTop(textarea[0].scrollHeight);
 
-    if (charIndex < line.length) {
-        textarea.append(line.charAt(charIndex));
-        textarea.scrollTop(textarea[0].scrollHeight);
-        setTimeout(() => feedbackerLetterByLetter(lineIndex, charIndex + 1), fastSpeed);
-    } else {
-        textarea.append("<br>");
-        setTimeout(() => feedbackerLetterByLetter(lineIndex + 1, 0), 50); // siguiente línea
-    }
+    // retraso mínimo entre líneas
+    setTimeout(() => feedbackerLetterByLetter(lineIndex + 1), 40);
 }
