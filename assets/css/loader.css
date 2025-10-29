@@ -1,0 +1,53 @@
+/* loader.css - versión corregida */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000; /* o el color que uses */
+  z-index: 9999; /* alto, pero será ocultado luego por JS */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00ff99;
+  font-family: monospace;
+  font-size: 1.2rem;
+}
+
+
+.term {
+  font-family: monospace;
+  color: #fff;
+  opacity: 0.95;
+  font-size: 1.1rem;
+  padding: 16px 20px;
+  width: 92%;
+  max-width: 900px;
+  /* <- clave: obligamos a que el contenedor tenga altura y scrollee internamente */
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0,0,0,0.0);
+  border-radius: 6px;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+}
+
+/* cursor parpadeante */
+.term:after {
+  content: "_";
+  margin-left: 2px;
+  animation: cursor 1s infinite;
+}
+
+@keyframes cursor {
+  0%, 40% { opacity: 0; }
+  50%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
