@@ -1,53 +1,53 @@
-var textarea = $('.term'); 
+var textarea = $('.term');
 
-var typingSpeed = 130; // velocidad de tecleo primera línea
+var typingSpeed = 170; // velocidad de tecleo primera línea
 var text = 'node alejogastonrecc.js';
 var i = 0;
 
 var keySound = 'assets/sounds/keystroke.ogg';
-var enterSound = new Audio('assets/sounds/enter.wav'); 
+var enterSound = new Audio('assets/sounds/enter.wav');
 enterSound.volume = 0.5;
 
 var output = [
-  "Loading system kernel v10.28...",
-  "Checking dependencies...",
-  "✓ HTML5 module loaded",
-  "✓ CSS3 styles initialized",
-  "✓ JavaScript engine running smoothly",
-  "Connecting to alejogastonrecc.js...",
-  "Verifying developer identity... [OK]",
-  "Compiling creativity.dll...",
-  "Loading projects → /portfolio",
-  "Mounting assets → /img, /code, /design",
-  "Checking caffeine levels... [HIGH]",
-  "Optimizing code for clarity and awesomeness...",
-  "Setting up responsive layouts...",
-  "Establishing connection to imagination server...",
-  "System check: All components operational ✅",
-  "Launching Portfolio v1.0.0",
-  "---------------------------------------------",
-  "Initialization complete.",
-  "Now booting → A. Recalde Personal Portfolio",
-  "---------------------------------------------",
-  "Access via http://localhost:3000 or scroll down to explore",
-  "Enjoy your stay 👨‍💻✨",
-  ""
+    "Cargando kernel del sistema v10.28... ",
+    "Revisando dependencias... 🛠️",
+    "✓ Módulo HTML5 cargado",
+    "✓ Estilos CSS3 inicializados",
+    "✓ Motor de JavaScript funcionando sin problemas 🚀",
+    "Conectando con alejogastonrecc.js...",
+    "Verificando identidad del desarrollador... [OK] 👨‍💻",
+    "Compilando creatividad.dll... ✨",
+    "Cargando proyectos → /portfolio",
+    "Montando assets → /img, /code, /design",
+    "Chequeando niveles de café... [ALTOS] ☕☕",
+    "Optimizando código para claridad y genialidad... 😎",
+    "Configurando layouts responsivos...",
+    "Estableciendo conexión con el servidor de imaginación... 🌈",
+    "Chequeo del sistema: Todos los componentes operativos ✅",
+    "Lanzando Portfolio v1.0.0",
+    "---------------------------------------------",
+    "Inicialización completa.",
+    "Arrancando → Portafolio personal de A. Recalde",
+    "---------------------------------------------",
+    "¡Disfrutá tu visita! 👨‍💻✨",
+    ""
 ];
+
 
 // Función para reproducir sonido de tecla (solo para la primera línea)
 function playKeySound() {
     var audio = new Audio(keySound);
     audio.volume = 0.3;
-    audio.play().catch(()=>{});
+    audio.play().catch(() => { });
 }
 
 function playEnterSound() {
     enterSound.currentTime = 0;
-    enterSound.play().catch(()=>{});
+    enterSound.play().catch(() => { });
 }
 
 // Listener del botón
-$('#start-portfolio').on('click', function() {
+$('#start-portfolio').on('click', function () {
     $(this).hide();
     runner(); // iniciar primera línea
 });
@@ -59,7 +59,7 @@ function runner() {
     textarea.scrollTop(textarea[0].scrollHeight);
     i++;
 
-    setTimeout(function() {
+    setTimeout(function () {
         if (i < text.length) {
             runner();
         } else {
@@ -75,12 +75,12 @@ function runner() {
 // función que escribe cada línea letra por letra, sin sonido y más rápido
 function feedbackerLetterByLetter(lineIndex, charIndex) {
     if (lineIndex >= output.length) {
-        textarea.append("<br>Initialising...<br>");
+        textarea.append("<br>Empecemos...<br>");
         playEnterSound();
         textarea.scrollTop(textarea[0].scrollHeight);
 
-        setTimeout(function() {
-            $(".load").fadeOut(1000, function() {
+        setTimeout(function () {
+            $(".load").fadeOut(1000, function () {
                 $('body').css('overflow', 'auto');
             });
         }, 800);
@@ -88,7 +88,7 @@ function feedbackerLetterByLetter(lineIndex, charIndex) {
     }
 
     const line = output[lineIndex];
-    const fastSpeed = 5; // velocidad más rápida para las demás líneas
+    const fastSpeed = 1; // velocidad más rápida para las demás líneas
 
     if (charIndex < line.length) {
         textarea.append(line.charAt(charIndex));
