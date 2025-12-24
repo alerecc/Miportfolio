@@ -46,11 +46,11 @@ function playEnterSound() {
     enterSound.play().catch(() => { });
 }
 
-// Listener del botón
-$('#start-portfolio').on('click', function () {
-    $(this).hide();
-    runner(); // iniciar primera línea
-});
+
+// $('#start-portfolio').on('click', function () {
+//     $(this).hide();
+//     runner(); 
+// });
 
 // animación tecleo de la primera línea
 function runner() {
@@ -92,3 +92,7 @@ function feedbackerLetterByLetter(lineIndex) {
     // retraso mínimo entre líneas
     setTimeout(() => feedbackerLetterByLetter(lineIndex + 1), 40);
 }
+
+$(document).ready(function () {
+    runner();
+});
