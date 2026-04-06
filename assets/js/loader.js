@@ -1,6 +1,6 @@
 var textarea = $('.term');
 
-var typingSpeed = 170; // velocidad de tecleo primera línea
+var typingSpeed = 30; // velocidad de tecleo primera línea
 var text = 'node alejogastonrecc.js';
 var i = 0;
 
@@ -19,10 +19,9 @@ var output = [
     "Compilando creatividad.dll... ✨",
     "Cargando proyectos → /portfolio",
     "Montando assets → /img, /code, /design",
-    "Chequeando niveles de café... [ALTOS] ☕☕",
     "Optimizando código para claridad y genialidad... 😎",
     "Configurando layouts responsivos...",
-    "Estableciendo conexión con el servidor de imaginación... 🌈",
+    "Estableciendo conexión con el servidor...",
     "Chequeo del sistema: Todos los componentes operativos ✅",
     "Lanzando Portfolio v1.0.0",
     "---------------------------------------------",
