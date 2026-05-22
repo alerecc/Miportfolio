@@ -1274,3 +1274,24 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+.skills-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.skills-badges span {
+  background: #0f172a;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.skills-badges span:hover {
+  background: #149ddd;
+  transform: scale(1.05);
+}
