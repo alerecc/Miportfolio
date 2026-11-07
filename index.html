@@ -1004,13 +1004,34 @@
               const sent = form.querySelector(".sent-message");
               loading.style.display = "block"; error.style.display = "none"; sent.style.display = "none";
               try {
-                const response = await fetch("/api/contacto", { method: "POST", body: new URLSearchParams(new FormData(form)) });
-                const result = await response.json();
-                if (!response.ok) throw new Error(result.error || "No se pudo guardar la consulta.");
+                const response = await fetch(form.dataset.apiUrl || "/api/contacto", { method: "POST", body: new URLSearchParams(new FormData(form)) });
+                const responseText = await response.text();
+                let result = null;
+                if (responseText.trim()) {
+                  try { result = JSON.parse(responseText); } catch (_) { result = null; }
+                }
+                if (!result || typeof result !== "object") {
+                  throw new Error("El servidor de contacto no respondió. La página debe estar desplegada con la API Node activa.");
+                }
+                if (!response.ok || result.ok !== true) {
+                  throw new Error(result.error || "No se pudo guardar la consulta.");
+                }
                 sent.textContent = "Gracias. Guarde tu consulta y me pondre en contacto contigo.";
                 sent.style.display = "block"; form.reset();
               } catch (err) {
-                error.textContent = err.message || "No se pudo enviar. Escribeme a alejo_recalde@hotmail.com.";
+                const errorMessage = err instanceof TypeError
+                  ? "No se pudo conectar con la API Node. Verifica que el sitio esté desplegado junto al servidor de contacto."
+                  : (err.message || "No se pudo guardar la consulta.");
+                error.replaceChildren(document.createTextNode(`${errorMessage} `));
+                const fallback = document.createElement("a");
+                const fields = new FormData(form);
+                const fallbackMessage = `Hola! estoy interesado en ${fields.get("subject") || "tu trabajo"}. Nombre: ${fields.get("name") || ""}. Correo: ${fields.get("email") || ""}. Celular: ${fields.get("phone") || ""}. Mensaje: ${fields.get("message") || ""}`.slice(0, 1500);
+                fallback.href = `https://wa.me/5493704397258?${new URLSearchParams({ text: fallbackMessage })}`;
+                fallback.target = "_blank";
+                fallback.rel = "noopener noreferrer";
+                fallback.className = "contact-whatsapp-fallback";
+                fallback.textContent = "Continuar por WhatsApp";
+                error.append(fallback);
                 error.style.display = "block";
               } finally { loading.style.display = "none"; }
             });

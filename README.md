@@ -1,6 +1,6 @@
 ﻿# Portfolio: despliegue y consultas
 
-El sitio ahora incluye un formulario que guarda cada consulta como una linea JSON en `data/contactos.txt`. Para que funcione en produccion, despliega el proyecto como **Web Service de Node** en Render (puedes usar el `render.yaml` incluido), no como Static Site. El formulario requiere que la pagina y `/api/contacto` se sirvan desde el mismo servicio.
+El sitio incluye un formulario que guarda cada consulta como una línea JSON en `data/contactos.txt`. Para que funcione en producción, despliega el proyecto como **Web Service de Node** en Render (puedes usar el `render.yaml` incluido), no como Static Site. El formulario requiere que la página y `/api/contacto` se sirvan desde el mismo servicio. GitHub Pages y otros alojamientos estáticos no ejecutan la API Node. Si el servidor devuelve una respuesta vacía o inválida, el formulario explica el problema y ofrece continuar por WhatsApp con los datos ingresados.
 
 Render Free usa almacenamiento efimero: el archivo puede desaparecer al reiniciarse o desplegarse el servicio. Para conservar consultas de forma confiable, configura un disco persistente (si tu plan lo permite) con `DATA_DIR=/var/data`, o cambia el guardado a una base de datos persistente antes de depender de este canal para clientes.
 
