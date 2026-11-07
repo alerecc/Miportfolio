@@ -1,0 +1,11 @@
+﻿services:
+  - type: web
+    name: alejorecc-portfolio
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: CONTACTS_VIEW_TOKEN
+        generateValue: true
