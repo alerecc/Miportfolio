@@ -300,8 +300,8 @@ h6 {
   #header .navmenu a,
   #header .navmenu a:focus {
     flex-direction: row;
-    justify-content: flex-end;
-    text-align: right;
+    justify-content: center;
+    text-align: center;
   }
 
   #header .navmenu a .navicon {
