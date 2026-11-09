@@ -236,9 +236,16 @@ h6 {
   cursor: pointer;
   position: fixed;
   top: 15px;
-  right: 15px;
+  left: 15px;
   z-index: 9999;
-  transition: background-color 0.3s;
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1199px) {
+  .header.header-show .header-toggle {
+    left: 245px;
+    transform: rotate(90deg);
+  }
 }
 
 .header .header-toggle:hover {
