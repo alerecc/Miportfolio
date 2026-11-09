@@ -296,6 +296,20 @@ h6 {
   width: 100%;
 }
 
+@media (max-width: 1199px) {
+  #header .navmenu a,
+  #header .navmenu a:focus {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    text-align: right;
+  }
+
+  #header .navmenu a .navicon {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+}
+
 .navmenu a .navicon,
 .navmenu a:focus .navicon {
   font-size: 20px;
