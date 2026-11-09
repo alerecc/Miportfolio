@@ -80,6 +80,7 @@ function feedbackerLetterByLetter(lineIndex) {
         setTimeout(() => {
             $(".load").fadeOut(1000, () => {
                 $('body').css('overflow', 'auto');
+                document.body.classList.add('intro-complete');
             });
         }, 800);
         return;
@@ -98,6 +99,7 @@ $(document).ready(function () {
             sessionStorage.removeItem('portfolio-return-internal');
             $('.load').remove();
             $('body').css('overflow', 'auto');
+            document.body.classList.add('intro-complete');
             return;
         }
     } catch (_) { }
