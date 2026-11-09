@@ -215,7 +215,15 @@ h6 {
 
 @media (max-width: 1199px) {
   .header {
-    left: -100%;
+    --mobile-header-width: min(300px, 85vw);
+    left: auto;
+    right: -100%;
+    width: var(--mobile-header-width);
+  }
+
+  .header.header-show {
+    left: auto;
+    right: 0;
   }
 }
 
@@ -236,15 +244,15 @@ h6 {
   cursor: pointer;
   position: fixed;
   top: 15px;
-  left: 15px;
+  right: 15px;
   z-index: 9999;
-  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: right 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (max-width: 1199px) {
   .header.header-show .header-toggle {
-    left: 245px;
-    transform: rotate(90deg);
+    right: calc(100vw - var(--mobile-header-width) + 15px);
+    transform: rotate(-90deg);
   }
 }
 
