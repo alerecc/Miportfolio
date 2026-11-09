@@ -215,7 +215,7 @@ h6 {
 
 @media (max-width: 1199px) {
   .header {
-    --mobile-header-width: min(300px, 85vw);
+    --mobile-header-width: min(280px, 80vw);
     left: auto;
     right: -100%;
     width: var(--mobile-header-width);
@@ -254,7 +254,7 @@ h6 {
 
 @media (max-width: 1199px) {
   .header.header-show .header-toggle {
-    right: calc(var(--mobile-header-width) - 55px);
+    right: calc(var(--mobile-header-width) - 40px - 15px);
     transform: rotate(-90deg);
   }
 }
