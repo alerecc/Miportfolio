@@ -93,5 +93,13 @@ function feedbackerLetterByLetter(lineIndex) {
 }
 
 $(document).ready(function () {
+    try {
+        if (sessionStorage.getItem('portfolio-return-internal') === '1') {
+            sessionStorage.removeItem('portfolio-return-internal');
+            $('.load').remove();
+            $('body').css('overflow', 'auto');
+            return;
+        }
+    } catch (_) { }
     runner();
 });

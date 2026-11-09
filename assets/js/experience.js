@@ -3,6 +3,24 @@
   'use strict';
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  document.querySelectorAll('.feature-back').forEach(link => {
+    link.addEventListener('click', event => {
+      const previousPage = document.referrer;
+      if (!previousPage || window.history.length < 2) return;
+      try {
+        if (new URL(previousPage).origin !== window.location.origin) return;
+      } catch (_) { return; }
+      event.preventDefault();
+      try { window.sessionStorage.setItem('portfolio-return-internal', '1'); } catch (_) { }
+      window.history.back();
+    });
+  });
+
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    try { window.sessionStorage.removeItem('portfolio-return-internal'); } catch (_) { }
+  });
+
   document.querySelectorAll('[data-slider]').forEach(shell => {
     const type = shell.dataset.slider;
     const element = shell.querySelector('.swiper');
@@ -68,13 +86,20 @@
     filter.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); filter.click(); } });
   });
 
-  document.querySelectorAll('.skills-marquee').forEach(marquee => {
-    const button = marquee.querySelector('.skills-marquee-toggle');
-    button.addEventListener('click', () => {
-      const paused = marquee.classList.toggle('is-paused');
-      button.setAttribute('aria-pressed', String(paused));
-      button.querySelector('i').className = `bi bi-${paused ? 'play' : 'pause'}-fill`;
-      button.querySelector('span').textContent = paused ? 'Reanudar cinta' : 'Pausar cinta';
+  document.querySelectorAll('.education-panel').forEach(panel => {
+    const summary = panel.querySelector('summary');
+    summary.addEventListener('click', event => {
+      event.preventDefault();
+      if (!panel.open) {
+        panel.classList.remove('education-closing');
+        panel.open = true;
+        return;
+      }
+      panel.classList.add('education-closing');
+      window.setTimeout(() => {
+        panel.open = false;
+        panel.classList.remove('education-closing');
+      }, reduced.matches ? 0 : 600);
     });
   });
 
