@@ -928,14 +928,14 @@
 
         <div class="row gy-4">
 
-          <div class="col-lg-5">
+          <div class="col-lg-12">
 
             <div class="info-wrap">
               <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
-                  <h3>Dirección</h3>
-                  <p>Resistencia, Argentina</p>
+                  <h3>Ubicación</h3>
+                  <p>Resistencia, Chaco - Argentina</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -963,90 +963,7 @@
             </div>
           </div>
 
-          <div class="col-lg-7">
-            <form id="contact-form" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="visually-hidden" aria-hidden="true"><label for="website-field">Dejar vacio</label><input
-                  id="website-field" name="website" tabindex="-1" autocomplete="off"></div>
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Nombre completo</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Correo</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="phone-field" class="pb-2">Celular (opcional)</label>
-                  <input type="tel" class="form-control" name="phone" id="phone-field" autocomplete="tel">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Motivo</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required>
-                </div>
-
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Mensaje</label>
-                  <textarea class="form-control" name="message" rows="6" id="message-field" maxlength="3000"
-                    required></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Enviando consulta...</div>
-                  <div class="error-message" role="alert"></div>
-                  <div class="sent-message" role="status"></div><button type="submit">Enviar consulta</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-          <script>
-            document.getElementById("contact-form").addEventListener("submit", async function (event) {
-              event.preventDefault();
-              const form = event.currentTarget;
-              const loading = form.querySelector(".loading");
-              const error = form.querySelector(".error-message");
-              const sent = form.querySelector(".sent-message");
-              loading.style.display = "block"; error.style.display = "none"; sent.style.display = "none";
-              try {
-                const response = await fetch(form.dataset.apiUrl || "/api/contacto", { method: "POST", body: new URLSearchParams(new FormData(form)) });
-                const responseText = await response.text();
-                let result = null;
-                if (responseText.trim()) {
-                  try { result = JSON.parse(responseText); } catch (_) { result = null; }
-                }
-                if (!result || typeof result !== "object") {
-                  throw new Error("El servidor de contacto no respondió. La página debe estar desplegada con la API Node activa.");
-                }
-                if (!response.ok || result.ok !== true) {
-                  throw new Error(result.error || "No se pudo guardar la consulta.");
-                }
-                sent.textContent = "Gracias. Guarde tu consulta y me pondre en contacto contigo.";
-                sent.style.display = "block"; form.reset();
-              } catch (err) {
-                const errorMessage = err instanceof TypeError
-                  ? "No se pudo conectar con la API Node. Verifica que el sitio esté desplegado junto al servidor de contacto."
-                  : (err.message || "No se pudo guardar la consulta.");
-                error.replaceChildren(document.createTextNode(`${errorMessage} `));
-                const fallback = document.createElement("a");
-                const fields = new FormData(form);
-                const fallbackMessage = `Hola! estoy interesado en ${fields.get("subject") || "tu trabajo"}. Nombre: ${fields.get("name") || ""}. Correo: ${fields.get("email") || ""}. Celular: ${fields.get("phone") || ""}. Mensaje: ${fields.get("message") || ""}`.slice(0, 1500);
-                fallback.href = `https://wa.me/5493704397258?${new URLSearchParams({ text: fallbackMessage })}`;
-                fallback.target = "_blank";
-                fallback.rel = "noopener noreferrer";
-                fallback.className = "contact-whatsapp-fallback";
-                fallback.textContent = "Continuar por WhatsApp";
-                error.append(fallback);
-                error.style.display = "block";
-              } finally { loading.style.display = "none"; }
-            });
-          </script>
-          <!-- End Contact Form -->
+          
 
         </div>
 
