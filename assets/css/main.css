@@ -221,14 +221,17 @@ h6 {
     width: var(--mobile-header-width);
   }
 
-  .header.header-show {
-    left: auto;
-    right: 0;
-  }
 }
 
 .header.header-show {
   left: 0;
+}
+
+@media (max-width: 1199px) {
+  .header.header-show {
+    left: auto;
+    right: 0;
+  }
 }
 
 .header .header-toggle {
@@ -251,7 +254,7 @@ h6 {
 
 @media (max-width: 1199px) {
   .header.header-show .header-toggle {
-    right: calc(100vw - var(--mobile-header-width) + 15px);
+    right: calc(var(--mobile-header-width) - 55px);
     transform: rotate(-90deg);
   }
 }
